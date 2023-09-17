@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,29 +6,29 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Medicio Bootstrap Template - Index</title>
+  <title>{% block 'title' %}{% endblock 'title' %}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="{% static 'assets/img/favicon.png ' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png ' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="{% static 'assets/vendor/fontawesome-free/css/all.min.css ' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/animate.css ' %}/animate.min.css ' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css ' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css ' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css ' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css ' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css ' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css ' %}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="{% static 'assets/css/style.css ' %}" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Medicio
@@ -41,6 +42,7 @@
 <body>
 
   <!-- ======= Top Bar ======= -->
+  
   <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
       <div class="align-items-center d-none d-md-flex">
@@ -56,22 +58,38 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>
+      <a href="index.html" class="logo me-auto"><img src="{% static 'assets/img/logo.png ' %}" alt=""></a>
+ 
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+   
+
+ 
 
       <nav id="navbar" class="navbar order-last order-lg-0">
+
+        {% if request.user.is_authenticated %}
+        <i style="font-size: 16px;">Logged in as {{ request.user.username }}</i>
+        {% endif %}
+      
         <ul>
-          <li><a class="nav-link scrollto " href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto " href="{% url 'root:home' %}">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto" href="#departments">Departments</a></li>
           <li><a class="nav-link scrollto" href="#doctors">Doctors</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          {% if request.user.is_authenticated %}
+          <li><a class="nav-link scrollto" href={% url 'accounts:logout' %}>Logout</a></li>
+          <li><a class="nav-link scrollto" href={% url 'password_change' %}>change password</a></li>
+          <li><a class="nav-link scrollto" href={% url 'accounts:edit_profile' %}>edit profile</a></li>
+          {% else %}
+          <li><a class="nav-link scrollto" href={% url 'accounts:signup' %}>signup</a></li>
+          <li><a class="nav-link scrollto" href={% url 'accounts:login' %}>Login</a></li>
+          {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
       <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
 
     </div>
@@ -86,7 +104,7 @@
       <div class="carousel-inner" role="listbox">
 
         <!-- Slide 1 -->
-        <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.jpg)">
+        <div class="carousel-item active" style="background-image: url({% static 'assets/img/slide/slide-1.jpg ' %})">
           <div class="container">
             <h2>Welcome to <span>Medicio</span></h2>
             <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
@@ -95,7 +113,7 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg)">
+        <div class="carousel-item" style="background-image: url({% static 'assets/img/slide/slide-2.jpg ' %})">
           <div class="container">
             <h2>Lorem Ipsum Dolor</h2>
             <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
@@ -104,7 +122,7 @@
         </div>
 
         <!-- Slide 3 -->
-        <div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg)">
+        <div class="carousel-item" style="background-image: url({% static 'assets/img/slide/slide-3.jpg ' %})">
           <div class="container">
             <h2>Sequi ea ut et est quaerat</h2>
             <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
@@ -176,7 +194,7 @@
         <div class="text-center">
           <h3>In an emergency? Need help now?</h3>
           <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <a class="cta-btn scrollto" href="#appointment">Make an Make an Appointment</a>
+          <a class="cta-btn scrollto" href='#'>Make an Make an Appointment</a>
         </div>
 
       </div>
@@ -193,7 +211,7 @@
 
         <div class="row">
           <div class="col-lg-6" data-aos="fade-right">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
+            <img src="{% static 'assets/img/about.jpg ' %}" class="img-fluid" alt="">
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left">
             <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
@@ -226,7 +244,7 @@
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
               <i class="fas fa-user-md"></i>
-              <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end={{dc}} data-purecounter-duration="1" class="purecounter"></span>
 
               <p><strong>Doctors</strong> consequuntur quae qui deca rode</p>
               <a href="#">Find out more &raquo;</a>
@@ -236,7 +254,7 @@
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
               <i class="far fa-hospital"></i>
-              <span data-purecounter-start="0" data-purecounter-end="26" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end={{dec}} data-purecounter-duration="1" class="purecounter"></span>
               <p><strong>Departments</strong> adipisci atque cum quia aut numquam delectus</p>
               <a href="#">Find out more &raquo;</a>
             </div>
@@ -245,7 +263,7 @@
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
               <i class="fas fa-flask"></i>
-              <span data-purecounter-start="0" data-purecounter-end="14" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end={{sc}} data-purecounter-duration="1" class="purecounter"></span>
               <p><strong>Research Lab</strong> aut commodi quaerat. Aliquam ratione</p>
               <a href="#">Find out more &raquo;</a>
             </div>
@@ -254,7 +272,7 @@
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
               <i class="fas fa-award"></i>
-              <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end={{sc}} data-purecounter-duration="1" class="purecounter"></span>
               <p><strong>Awards</strong> rerum asperiores dolor molestiae doloribu</p>
               <a href="#">Find out more &raquo;</a>
             </div>
@@ -292,7 +310,7 @@
               <p>Expedita veritatis consequuntur nihil tempore laudantium vitae denat pacta</p>
             </div>
           </div>
-          <div class="image col-lg-6 order-1 order-lg-2" style='background-image: url("assets/img/features.jpg");' data-aos="zoom-in"></div>
+          <div class="image col-lg-6 order-1 order-lg-2" style='background-image: url("{% static 'assets/img/features.jpg ' %}");' data-aos="zoom-in"></div>
         </div>
 
       </div>
@@ -308,39 +326,18 @@
         </div>
 
         <div class="row">
+          {% for service in services %}
           <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon"><i class="fas fa-heartbeat"></i></div>
-            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+            <h4 class="title"><a href="">{{service.title}}</a></h4>
+            <p class="description">{{service.content}}</p>
+            
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon"><i class="fas fa-pills"></i></div>
-            <h4 class="title"><a href="">Dolor Sitema</a></h4>
-            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon"><i class="fas fa-hospital-user"></i></div>
-            <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon"><i class="fas fa-dna"></i></div>
-            <h4 class="title"><a href="">Magni Dolores</a></h4>
-            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="200">
-            <div class="icon"><i class="fas fa-wheelchair"></i></div>
-            <h4 class="title"><a href="">Nemo Enim</a></h4>
-            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-          </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="zoom-in" data-aos-delay="300">
-            <div class="icon"><i class="fas fa-notes-medical"></i></div>
-            <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-          </div>
+               {% endfor %}
         </div>
-
+      
       </div>
+   
     </section><!-- End Services Section -->
 
     <!-- ======= Appointment Section ======= -->
@@ -351,8 +348,9 @@
           <h2>Make an Appointment</h2>
           <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
-
-        <form action="forms/appointment.php" method="post" role="form" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+      
+        <form method="post">
+          {% csrf_token %}
           <div class="row">
             <div class="col-md-4 form-group">
               <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -371,17 +369,17 @@
             <div class="col-md-4 form-group mt-3">
               <select name="department" id="department" class="form-select">
                 <option value="">Select Department</option>
-                <option value="Department 1">Department 1</option>
-                <option value="Department 2">Department 2</option>
-                <option value="Department 3">Department 3</option>
+                {% for dep in department %}
+                <option value={{dep.id}}>{{dep.name}}</option>
+                {% endfor %}
               </select>
             </div>
             <div class="col-md-4 form-group mt-3">
               <select name="doctor" id="doctor" class="form-select">
                 <option value="">Select Doctor</option>
-                <option value="Doctor 1">Doctor 1</option>
-                <option value="Doctor 2">Doctor 2</option>
-                <option value="Doctor 3">Doctor 3</option>
+                {% for dr in doctor %}
+                <option value={{dr.info.id}}>{{dr.info}}</option>
+                {% endfor %}
               </select>
             </div>
           </div>
@@ -390,12 +388,17 @@
             <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
           </div>
           <div class="my-3">
-            <div class="loading">Loading</div>
             <div class="error-message"></div>
-            <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+        
           </div>
           <div class="text-center"><button type="submit">Make an Appointment</button></div>
+ 
         </form>
+        {% if messages %}
+        {% for message in messages %}
+          <p>{{ message}}</p>
+        {% endfor %}
+      {% endif %}
 
       </div>
     </section><!-- End Appointment Section -->
@@ -443,25 +446,25 @@
               <div class="tab-pane active show" id="tab-1">
                 <h3>Cardiology</h3>
                 <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                <img src="assets/img/departments-1.jpg" alt="" class="img-fluid">
+                <img src="{% static 'assets/img/departments-1.jpg ' %}" alt="" class="img-fluid">
                 <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
               </div>
               <div class="tab-pane" id="tab-2">
                 <h3>Neurology</h3>
                 <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                <img src="assets/img/departments-2.jpg" alt="" class="img-fluid">
+                <img src="{% static 'assets/img/departments-2.jpg ' %}" alt="" class="img-fluid">
                 <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
               </div>
               <div class="tab-pane" id="tab-3">
                 <h3>Hepatology</h3>
                 <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                <img src="assets/img/departments-3.jpg" alt="" class="img-fluid">
+                <img src="{% static 'assets/img/departments-3.jpg ' %}" alt="" class="img-fluid">
                 <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
               </div>
               <div class="tab-pane" id="tab-4">
                 <h3>Pediatrics</h3>
                 <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                <img src="assets/img/departments-4.jpg" alt="" class="img-fluid">
+                <img src="{% static 'assets/img/departments-4.jpg ' %}" alt="" class="img-fluid">
                 <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
               </div>
             </div>
@@ -482,71 +485,21 @@
 
         <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
           <div class="swiper-wrapper">
-
+  
+            {% for test in test %}
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                  {{test.comment}}
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
+                <img src="{% static 'assets/img/testimonials/testimonials-2.jpg ' %}" class="testimonial-img" alt="">
+                <h3>{{test.info}}</h3>
+                <h4>{{test.job}}</h4>
               </div>
             </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div><!-- End testimonial item -->
+            {% endfor %}
 
           </div>
           <div class="swiper-pagination"></div>
@@ -565,81 +518,27 @@
         </div>
 
         <div class="row">
-
+          {% for dr  in doctor %}
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
             <div class="member" data-aos="fade-up" data-aos-delay="100">
               <div class="member-img">
-                <img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt="">
+                <img src={{dr.image.url}} class="img-fluid" alt="">
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href={{dr.twitter}}><i class="bi bi-twitter"></i></a>
+                  <a href={{dr.facebook}}><i class="bi bi-facebook"></i></a>
+                  <a href={{dr.instagram}}><i class="bi bi-instagram"></i></a>
+                  <a href={{dr.linkedin}}><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
               <div class="member-info">
-                <h4>Walter White</h4>
-                <span>Chief Medical Officer</span>
+                <h4>{{dr.info}}</h4>
+                <span>{{dr.job}}</span>
               </div>
             </div>
           </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member" data-aos="fade-up" data-aos-delay="200">
-              <div class="member-img">
-                <img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Anesthesiologist</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member" data-aos="fade-up" data-aos-delay="300">
-              <div class="member-img">
-                <img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>Cardiology</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-            <div class="member" data-aos="fade-up" data-aos-delay="400">
-              <div class="member-img">
-                <img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Amanda Jepson</h4>
-                <span>Neurosurgeon</span>
-              </div>
-            </div>
-          </div>
-
+           {% endfor %}
         </div>
-
+        
       </div>
     </section><!-- End Doctors Section -->
 
@@ -654,14 +553,14 @@
 
         <div class="gallery-slider swiper">
           <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-1.jpg"><img src="assets/img/gallery/gallery-1.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-2.jpg"><img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-3.jpg"><img src="assets/img/gallery/gallery-3.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-4.jpg"><img src="assets/img/gallery/gallery-4.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-5.jpg"><img src="assets/img/gallery/gallery-5.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-6.jpg"><img src="assets/img/gallery/gallery-6.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-7.jpg"><img src="assets/img/gallery/gallery-7.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="gallery-lightbox" href="assets/img/gallery/gallery-8.jpg"><img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-1.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-1.jpg ' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-2.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-2.jpg ' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-3.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-3.jpg ' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-4.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-4.jpg ' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-5.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-5.jpg ' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-6.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-6.jpg ' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-7.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-7.jpg ' %}" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="gallery-lightbox" href="{% static 'assets/img/gallery/gallery-8.jpg ' %}"><img src="{% static 'assets/img/gallery/gallery-8.jpg ' %}" class="img-fluid" alt=""></a></div>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -870,30 +769,33 @@
             </div>
 
           </div>
-
+          
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form  method="post">
+              {% csrf_token %}
               <div class="row">
                 <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
                 <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
                 </div>
               </div>
               <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
               </div>
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="7" placeholder="Message" required=""></textarea>
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+              <div class="text-center">
+                <button type="submit">Send Message</button>
               </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
+            {% if messages %}
+            {% for message in messages %}
+              <p>{{ message}}</p>
+            {% endfor %}
+          {% endif %}
           </div>
 
         </div>
@@ -902,8 +804,7 @@
     </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
+    <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
@@ -953,9 +854,16 @@
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Our Newsletter</h4>
             <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
+            {% if messages %}
+            {% for message in messages %}
+              <p style='color:green'>{{ message}}</p>
+            {% endfor %}
+          {% endif %}
+          <form  method="post">
+            {% csrf_token %}
+            <input type="email" name="email">
+            <input type="submit" value="Subscribe">
+          </form>
 
           </div>
 
@@ -981,15 +889,15 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js ' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js ' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js ' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js ' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js ' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js ' %}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{% static 'assets/js/main.js ' %}"></script>
 
 </body>
 
