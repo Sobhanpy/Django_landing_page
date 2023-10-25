@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect
-from account.models import CustomeUser
+from accounts.models import CustomeUser
 from django.contrib import messages
 from .models import *
 from .forms import *
